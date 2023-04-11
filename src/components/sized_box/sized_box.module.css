@@ -1,0 +1,4 @@
+.div_sized_box {
+    width: var(--width);
+    height: var(--height);
+}

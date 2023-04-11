@@ -1,0 +1,81 @@
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:root {
+  --shadow-color: #d8d8d8;
+  --dark-grey: #121212;
+  --weak-white: #fafafa;
+  -webkit-tap-highlight-color: transparent;
+  cursor: default;
+  -moz-tab-size: 4;
+  tab-size: 4;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+body > div {
+  height: 100%;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  margin-block-start: unset;
+  margin-block-end: unset;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+ul {
+  list-style: none;
+  padding-left: unset;
+  padding-inline-start: unset;
+  margin-block-start: unset;
+  margin-block-end: unset;
+}
+
+.main_app {
+  height: auto;
+  min-height: 100%;
+  padding-top: var(--header-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.div_three {
+  height: 100%;
+  width: 100%;
+}
