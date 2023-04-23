@@ -10,9 +10,9 @@ export interface LatLngModel {
 const useThree = () => {
     const ref = useRef<HTMLDivElement>(null);
 
-    let renderer: Three.WebGLRenderer;
+    const scene = new Three.Scene();
 
-    let scene: Three.Scene;
+    let renderer: Three.WebGLRenderer;
 
     let camera: Three.PerspectiveCamera;
 
@@ -41,8 +41,6 @@ const useThree = () => {
             setRenderer();
 
             controls = new OrbitControls(camera, ref.current);
-
-            scene = new Three.Scene();
 
             renderer.render(scene, camera);
 
@@ -101,19 +99,13 @@ const useThree = () => {
     };
 
     const latLngToXYZ = () => {
-        // const latRad = latLng.lat * Math.PI / 180;
-        // const lngRad = latLng.lng * Math.PI / 180;
-
-        // const x = -Math.cos(latRad) * Math.cos(lngRad);
-        // const y = Math.cos(latRad) * Math.sin(lngRad);
-        // const z = Math.sin(latRad);
 
         const phi = (90 - latLng.lat) * (Math.PI / 180);
         const theta = (latLng.lng + 180) * (Math.PI / 180);
 
-        const x = -(Math.sin(phi) * Math.cos(theta));
-        const z = (Math.sin(phi) * Math.sin(theta));
-        const y = (Math.cos(phi));
+        const x = -Math.sin(phi) * Math.cos(theta);
+        const z = Math.sin(phi) * Math.sin(theta);
+        const y = Math.cos(phi);
 
         return { x, y, z };
     };
