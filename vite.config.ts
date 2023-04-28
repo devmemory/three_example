@@ -1,21 +1,23 @@
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  build: {
-    outDir: 'build'
-  },
-  resolve: {
-    alias: {
-      src: '/src'
+export default defineConfig(({ command, mode, ssrBuild }) => {
+  return {
+    plugins: [react()],
+    build: {
+      outDir: 'build'
+    },
+    resolve: {
+      alias: {
+        src: '/src'
+      }
+    },
+    server: {
+      port: 3000
+    },
+    esbuild: {
+      drop: mode === 'build' ? ['console'] : undefined
     }
-  },
-  server: {
-    port: 3000
-  },
-  // esbuild: {
-  //   drop: ['console']
-  // }
-})
+  };
+});
