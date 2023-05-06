@@ -6,7 +6,7 @@ type BoxProps = {
     width?: number,
 };
 
-const SizedBox: React.FC<BoxProps> = ({ height, width }) => {
+const SizedBox = ({ height, width }: BoxProps) => {
     return (
         <div className={styles.div_sized_box} style={{ '--height': `${height}px`, '--width': `${width}px` } as React.CSSProperties} />
     );
