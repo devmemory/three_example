@@ -7,7 +7,7 @@ export interface LatLngModel {
     lng: number;
 }
 
-const useThree = () => {
+export const useEarth = () => {
     const ref = useRef<HTMLDivElement>(null);
 
     const scene = new Three.Scene();
@@ -147,5 +147,3 @@ const useThree = () => {
         }
     };
 };
-
-export default useThree;

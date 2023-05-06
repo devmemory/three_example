@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import * as Three from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-const useGauge = () => {
+export const useGauge = () => {
   const ref = useRef<HTMLDivElement>(null);
 
   let renderer: Three.WebGLRenderer;
@@ -164,5 +164,3 @@ const useGauge = () => {
     }
   };
 };
-
-export default useGauge;

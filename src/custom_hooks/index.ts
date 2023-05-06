@@ -1,4 +1,5 @@
-export { default as useBasic } from './use_basic';
-export { default as useGauge } from './use_gauge';
-export { default as useEarth } from './use_earth';
-export { default as useRaycasting } from './use_raycasting'
+export * from './use_basic';
+export * from './use_gauge';
+export * from './use_earth';
+export * from './use_raycasting';
+export * from './use_gltf'

@@ -1,4 +1,5 @@
 import React, { lazy } from "react";
+import GLTFExample from "src/routes/gltf";
 
 const MainIndex = lazy(() => import('src/routes/index'));
 const BasicExample = lazy(() => import('src/routes/basic/index'));
@@ -10,16 +11,18 @@ const Error = lazy(() => import('src/routes/error/index'));
 export const routeName = {
     main: '/',
     basic: '/basic',
-    racasting: '/raycasting',
+    raycasting: '/raycasting',
     gauge: '/gauge',
-    earth: '/earth'
+    gltf: '/gltf',
+    earth: '/earth',
 };
 
 export const routeArr = [
     { path: routeName.main, element: <MainIndex /> },
     { path: routeName.gauge, element: <Gauge /> },
     { path: routeName.basic, element: <BasicExample /> },
-    { path: routeName.racasting, element: <Raycasting /> },
+    { path: routeName.raycasting, element: <Raycasting /> },
+    { path: routeName.gltf, element: <GLTFExample /> },
     { path: routeName.earth, element: <Earth /> },
     { path: '*', element: <Error /> }
 ];

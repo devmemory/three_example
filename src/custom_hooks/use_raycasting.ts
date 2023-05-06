@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import * as Three from "three";
 
-const useRaycasting = () => {
+export const useRaycasting = () => {
     const ref = useRef<HTMLDivElement>(null);
 
     const width = window.innerWidth;
@@ -139,5 +139,3 @@ const useRaycasting = () => {
 
     return { ref };
 };
-
-export default useRaycasting;

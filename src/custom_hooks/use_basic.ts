@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 import * as Three from "three";
 
-
-const useBasic = () => {
+export const useBasic = () => {
     const ref = useRef<HTMLDivElement>(null);
 
     const width = window.innerWidth;
@@ -69,5 +68,3 @@ const useBasic = () => {
 
     return { ref };
 };
-
-export default useBasic;
