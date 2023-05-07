@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import util from "src/util/common_util";
 import * as Three from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -31,6 +30,8 @@ export const useGLTF = () => {
     let mixer: Three.AnimationMixer;
 
     let animations: AnimationType;
+
+    let fox: Three.Group;
 
     useEffect(() => {
         window.onresize = handleResize;
@@ -84,11 +85,13 @@ export const useGLTF = () => {
             (gltf) => {
                 console.log({ gltf });
 
-                gltf.scene.scale.set(0.01, 0.01, 0.01);
+                fox = gltf.scene;
 
-                scene.add(gltf.scene);
+                fox.scale.set(0.01, 0.01, 0.01);
 
-                mixer = new Three.AnimationMixer(gltf.scene);
+                scene.add(fox);
+
+                mixer = new Three.AnimationMixer(fox);
 
                 animations = {
                     survey: mixer.clipAction(gltf.animations[0]),
@@ -127,20 +130,38 @@ export const useGLTF = () => {
 
     // 이벤트 시작
     const handleKeydown = async (e: globalThis.KeyboardEvent) => {
-        if (e.key === '1') {
-            animations.walk?.play();
-        } else if (e.key === '2') {
-            animations.run?.play();
-        } else if (e.key === '3') {
-            animations.survey?.play();
+        switch (e.key) {
+            case 'ArrowUp':
+                if (!animations.walk?.isRunning()) {
+                    animations.walk?.play();
+                }
+                break;
+            case 'Shift':
+                if (!animations.run?.isRunning()) {
+                    animations.run?.play();
+                }
+                break;
+            case ' ':
+                if (!animations.survey?.isRunning()) {
+                    animations.survey?.play();
+                }
+                break;
+            case 'ArrowLeft':
+                fox.rotation.y -= 0.05;
+                break;
+            case 'ArrowRight':
+                fox.rotation.y += 0.05;
+                break;
         }
     };
 
     // 이벤트 중단
-    const handleKeyup = () => {
-        Object.values(animations).forEach((value: Three.AnimationAction) => {
-            value.stop();
-        });
+    const handleKeyup = (e: globalThis.KeyboardEvent) => {
+        if (e.key === 'ArrowUp' || e.key === 'Shift' || e.key === ' ') {
+            Object.values(animations).forEach((value: Three.AnimationAction) => {
+                value.stop();
+            });
+        }
     };
 
     return { ref };
