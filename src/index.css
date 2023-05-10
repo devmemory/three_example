@@ -75,6 +75,13 @@ ul {
   overflow-y: auto;
 }
 
+.div_main_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 .div_three {
   height: 100%;
   width: 100%;

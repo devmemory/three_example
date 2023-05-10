@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import util from 'src/util/common_util';
-import CommonBtn from 'src/components/common_btn/common_btn';
 import { useGauge } from 'src/custom_hooks';
+import { CommonBtn } from 'src/components';
 
 const Gauge = () => {
     const { ref, setValue, resetCamera } = useGauge();

@@ -17,7 +17,7 @@ export const useGLTF = () => {
 
     const scene = new Three.Scene();
 
-    const gtlfLoader = new GLTFLoader();
+    const gltfLoader = new GLTFLoader();
 
     let camera: Three.PerspectiveCamera;
 
@@ -53,7 +53,7 @@ export const useGLTF = () => {
 
             setLight();
 
-            loadGTLF();
+            loadGLTF();
 
             animate();
         }
@@ -80,8 +80,8 @@ export const useGLTF = () => {
     };
 
     // gltf load, animation setting
-    const loadGTLF = () => {
-        gtlfLoader.load('/assets/gltf/Fox.gltf',
+    const loadGLTF = () => {
+        gltfLoader.load('/assets/gltf/Fox.gltf',
             (gltf) => {
                 console.log({ gltf });
 
@@ -135,11 +135,13 @@ export const useGLTF = () => {
                 if (!animations.walk?.isRunning()) {
                     animations.walk?.play();
                 }
+                fox.position.x += 0.05;
                 break;
             case 'Shift':
                 if (!animations.run?.isRunning()) {
                     animations.run?.play();
                 }
+                fox.position.x += 0.1;
                 break;
             case ' ':
                 if (!animations.survey?.isRunning()) {

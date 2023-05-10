@@ -33,7 +33,7 @@ export const defaultStyles = {
   bottom: 'unset',
 };
 
-const CommonBtn = (props: BtnProps) => {
+export const CommonBtn = (props: BtnProps) => {
   return (
     <button type={props.type ?? 'button'} className={styles.btn_common} onClick={props.onClick} style={{
       '--background-color': props.backgroundColor ?? defaultStyles.backgroundColor,
@@ -51,5 +51,3 @@ const CommonBtn = (props: BtnProps) => {
     </button>
   );
 };
-
-export default CommonBtn;

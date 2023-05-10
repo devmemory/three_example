@@ -6,10 +6,8 @@ type BoxProps = {
     width?: number,
 };
 
-const SizedBox = ({ height, width }: BoxProps) => {
+export const SizedBox = ({ height, width }: BoxProps) => {
     return (
         <div className={styles.div_sized_box} style={{ '--height': `${height}px`, '--width': `${width}px` } as React.CSSProperties} />
     );
 };
-
-export default SizedBox;

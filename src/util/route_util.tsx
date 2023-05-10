@@ -1,4 +1,5 @@
 import React, { lazy } from "react";
+import { createBrowserRouter } from "react-router-dom";
 import GLTFExample from "src/routes/gltf";
 
 const MainIndex = lazy(() => import('src/routes/index'));
@@ -17,7 +18,7 @@ export const routeName = {
     earth: '/earth',
 };
 
-export const routeArr = [
+export const router = createBrowserRouter([
     { path: routeName.main, element: <MainIndex /> },
     { path: routeName.gauge, element: <Gauge /> },
     { path: routeName.basic, element: <BasicExample /> },
@@ -25,4 +26,4 @@ export const routeArr = [
     { path: routeName.gltf, element: <GLTFExample /> },
     { path: routeName.earth, element: <Earth /> },
     { path: '*', element: <Error /> }
-];
+]);
