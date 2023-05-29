@@ -20,12 +20,15 @@ export const useEarth = () => {
 
     let latLng: LatLngModel = { lat: 52.520008, lng: 13.404954 };//{ lat: 37.532600, lng: 127.024612 };
 
-
     useEffect(() => {
         window.addEventListener('resize', handleResize);
 
+        window.addEventListener('click', clickListener);
+
         return () => {
             window.removeEventListener('resize', handleResize);
+
+            window.removeEventListener('click', clickListener);
         };
     }, []);
 
@@ -46,7 +49,7 @@ export const useEarth = () => {
 
             makeEarth();
 
-            makePoint();
+            // makePoint();
 
             animate();
         }
@@ -80,18 +83,18 @@ export const useEarth = () => {
         scene.add(sphere);
     };
 
-    const makePoint = () => {
+    const makePoint = (x:number, y:number, z:number) => {
         const geometry = new Three.SphereGeometry(0.02);
 
         const material = new Three.MeshBasicMaterial({ color: 0xff0000 });
 
         const point = new Three.Mesh(geometry, material);
 
-        const { x, y, z } = latLngToXYZ();
+        // const { x, y, z } = latLngToXYZ();
 
-        const { lat, lng } = XYZToLatLng(x, y, z);
+        // const { lat, lng } = XYZToLatLng(x, y, z);
 
-        console.log({ latLng, x, y, z, lat, lng });
+        // console.log({ latLng, x, y, z, lat, lng });
 
         point.position.set(x, y, z);
 
@@ -136,6 +139,27 @@ export const useEarth = () => {
 
             camera.updateProjectionMatrix();
         };
+    };
+
+    const clickListener = (e: MouseEvent) => {
+        const mousePosition = new Three.Vector2();
+
+        const raycaster = new Three.Raycaster();
+
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        mousePosition.set((e.clientX / width) * 2 - 1, -(e.clientY / height) * 2 + 1);
+
+        raycaster.setFromCamera(mousePosition, camera);
+
+        const intersects = raycaster.intersectObjects(scene.children);
+
+        if (intersects.length > 0) {
+            const point = intersects[0].point;
+
+            makePoint(point.x, point.y, point.z)
+        }
     };
 
     return {
