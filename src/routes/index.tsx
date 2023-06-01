@@ -11,12 +11,9 @@ const MainIndex = () => {
     return (
         <div className='div_main_btn'>
             {routes.map((e, i) => {
-                if (i === 0) {
-                    return <></>;
-                }
-
                 return (
                     <CommonBtn
+                        key={`r_${i}`}
                         margin='10px'
                         onClick={() => navi(e[1])}>
                         {e[0]}

@@ -1,5 +1,6 @@
 import React, { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
+import FiberExample from "src/routes/fiber";
 import GLTFExample from "src/routes/gltf";
 
 const MainIndex = lazy(() => import('src/routes/index'));
@@ -16,6 +17,7 @@ export const routeName = {
     gauge: '/gauge',
     gltf: '/gltf',
     earth: '/earth',
+    fiber: '/fiber'
 };
 
 export const router = createBrowserRouter([
@@ -25,5 +27,6 @@ export const router = createBrowserRouter([
     { path: routeName.raycasting, element: <Raycasting /> },
     { path: routeName.gltf, element: <GLTFExample /> },
     { path: routeName.earth, element: <Earth /> },
+    { path: routeName.fiber, element: <FiberExample /> },
     { path: '*', element: <Error /> }
 ]);
