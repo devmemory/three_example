@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './sized_box.module.css';
+import styles from './box.module.css';
 
 type BoxProps = {
     height?: number,

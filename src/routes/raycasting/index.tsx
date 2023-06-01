@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRaycasting } from 'src/custom_hooks';
+import { useRaycasting } from 'src/hooks';
 
 const Raycasting = () => {
     const { ref } = useRaycasting();

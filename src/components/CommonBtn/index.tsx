@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './common_btn.module.css';
+import styles from './btn.module.css';
 
 type BtnProps = {
   children: JSX.Element | string,

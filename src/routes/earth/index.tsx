@@ -1,6 +1,6 @@
 import React from 'react';
 import { CommonBtn } from 'src/components';
-import { useEarth } from 'src/custom_hooks';
+import { useEarth } from 'src/hooks';
 
 const Earth = () => {
     const { ref, resetCamera } = useEarth();

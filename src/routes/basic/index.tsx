@@ -1,5 +1,5 @@
 import React from 'react';
-import { useBasic } from 'src/custom_hooks';
+import { useBasic } from 'src/hooks';
 
 const BasicExample = () => {
     const { ref } = useBasic();

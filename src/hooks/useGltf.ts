@@ -135,13 +135,13 @@ export const useGLTF = () => {
                 if (!animations.walk?.isRunning()) {
                     animations.walk?.play();
                 }
-                fox.position.x += 0.05;
+                // fox.position.x += 0.05;
                 break;
             case 'Shift':
                 if (!animations.run?.isRunning()) {
                     animations.run?.play();
                 }
-                fox.position.x += 0.1;
+                // fox.position.x += 0.1;
                 break;
             case ' ':
                 if (!animations.survey?.isRunning()) {

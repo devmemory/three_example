@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGLTF } from 'src/custom_hooks';
+import { useGLTF } from 'src/hooks';
 
 const GLTFExample = () => {
     const { ref } = useGLTF();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CommonBtn } from 'src/components';
-import { routeName } from 'src/util/route_util';
+import { routeName } from 'src/util/routeUtil';
 
 const MainIndex = () => {
     const routes = Object.entries(routeName);

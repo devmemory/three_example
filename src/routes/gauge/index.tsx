@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import util from 'src/util/common_util';
-import { useGauge } from 'src/custom_hooks';
+import util from 'src/util/commonUtil';
+import { useGauge } from 'src/hooks';
 import { CommonBtn } from 'src/components';
 
 const Gauge = () => {
