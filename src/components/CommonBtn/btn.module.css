@@ -1,36 +1,36 @@
 .btn_common {
-    background-color: var(--background-color);
-    color: var(--color);
-    width: var(--width);
-    height: var(--height);
-    margin: var(--margin);
-    border: var(--border);
-    position: var(--position);
-    top: var(--top);
-    left: var(--left);
-    right: var(--right);
-    bottom: var(--bottom);
-    border-radius: 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: var(--background-color);
+  color: var(--color);
+  width: var(--width);
+  height: var(--height);
+  margin: var(--margin);
+  border: var(--border);
+  position: var(--position);
+  top: var(--top);
+  left: var(--left);
+  right: var(--right);
+  bottom: var(--bottom);
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn_common:hover {
-    animation: btn 0.8s ease forwards;
+  animation: btn 0.8s ease forwards;
 }
 
 @keyframes btn {
-    from {
-        outline: grey solid;
-        outline-offset: 10px;
-        transform: scale(1);
-    }
+  from {
+    outline: grey solid;
+    outline-offset: 10px;
+    transform: scale(1);
+  }
 
-    to {
-        outline: transparent solid;
-        outline-offset: 0px;
-        transform: scale(1.05);
-        box-shadow: 0 0 5px grey;
-    }
+  to {
+    outline: transparent solid;
+    outline-offset: 0px;
+    transform: scale(1.05);
+    box-shadow: 0 0 5px grey;
+  }
 }

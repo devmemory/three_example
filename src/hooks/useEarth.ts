@@ -1,173 +1,179 @@
 import { useEffect, useRef } from "react";
-import * as Three from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import * as Three from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 export interface LatLngModel {
-    lat: number,
-    lng: number;
+  lat: number;
+  lng: number;
 }
 
 export const useEarth = () => {
-    const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
-    const scene = new Three.Scene();
+  const scene = new Three.Scene();
 
-    let renderer: Three.WebGLRenderer;
+  let renderer: Three.WebGLRenderer;
 
-    let camera: Three.PerspectiveCamera;
+  let camera: Three.PerspectiveCamera;
 
-    let controls: OrbitControls;
+  let controls: OrbitControls;
 
-    let latLng: LatLngModel = { lat: 52.520008, lng: 13.404954 };//{ lat: 37.532600, lng: 127.024612 };
+  let latLng: LatLngModel = { lat: 52.520008, lng: 13.404954 }; //{ lat: 37.532600, lng: 127.024612 };
 
-    useEffect(() => {
-        window.addEventListener('resize', handleResize);
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
 
-        window.addEventListener('click', clickListener);
+    window.addEventListener("click", clickListener);
 
-        return () => {
-            window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
 
-            window.removeEventListener('click', clickListener);
-        };
-    }, []);
-
-    useEffect(() => {
-        init();
-    }, [ref]);
-
-    const init = () => {
-        // div에 ref 바인딩 된 이후에 작동
-        if (ref.current !== null) {
-            setCamera();
-
-            setRenderer();
-
-            controls = new OrbitControls(camera, ref.current);
-
-            renderer.render(scene, camera);
-
-            makeEarth();
-
-            // makePoint();
-
-            animate();
-        }
+      window.removeEventListener("click", clickListener);
     };
+  }, []);
 
-    // 카메라 셋팅
-    const setCamera = () => {
-        camera = new Three.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  useEffect(() => {
+    init();
+  }, [ref]);
 
-        camera.position.z = 5;
-    };
+  const init = () => {
+    // div에 ref 바인딩 된 이후에 작동
+    if (ref.current !== null) {
+      setCamera();
 
-    // renderer 기본 셋팅
-    const setRenderer = () => {
-        renderer = new Three.WebGLRenderer({ antialias: true });
+      setRenderer();
 
-        renderer.setSize(window.innerWidth, window.innerHeight);
+      controls = new OrbitControls(camera, ref.current);
 
-        ref.current!.appendChild(renderer.domElement);
-    };
+      renderer.render(scene, camera);
 
-    const makeEarth = () => {
-        const geometry = new Three.SphereGeometry(1);
+      makeEarth();
 
-        const texture = new Three.TextureLoader().load('/assets/img/earth.jpg');
+      // makePoint();
 
-        const material = new Three.MeshBasicMaterial({ map: texture });
+      animate();
+    }
+  };
 
-        const sphere = new Three.Mesh(geometry, material);
+  // 카메라 셋팅
+  const setCamera = () => {
+    camera = new Three.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
 
-        scene.add(sphere);
-    };
+    camera.position.z = 5;
+  };
 
-    const makePoint = (x:number, y:number, z:number) => {
-        const geometry = new Three.SphereGeometry(0.02);
+  // renderer 기본 셋팅
+  const setRenderer = () => {
+    renderer = new Three.WebGLRenderer({ antialias: true });
 
-        const material = new Three.MeshBasicMaterial({ color: 0xff0000 });
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-        const point = new Three.Mesh(geometry, material);
+    ref.current!.appendChild(renderer.domElement);
+  };
 
-        // const { x, y, z } = latLngToXYZ();
+  const makeEarth = () => {
+    const geometry = new Three.SphereGeometry(1);
 
-        // const { lat, lng } = XYZToLatLng(x, y, z);
+    const texture = new Three.TextureLoader().load("/assets/img/earth.jpg");
 
-        // console.log({ latLng, x, y, z, lat, lng });
+    const material = new Three.MeshBasicMaterial({ map: texture });
 
-        point.position.set(x, y, z);
+    const sphere = new Three.Mesh(geometry, material);
 
-        scene.add(point);
-    };
+    scene.add(sphere);
+  };
 
-    const latLngToXYZ = () => {
+  const makePoint = (x: number, y: number, z: number) => {
+    const geometry = new Three.SphereGeometry(0.02);
 
-        const phi = (90 - latLng.lat) * (Math.PI / 180);
-        const theta = (latLng.lng + 180) * (Math.PI / 180);
+    const material = new Three.MeshBasicMaterial({ color: 0xff0000 });
 
-        const x = -Math.sin(phi) * Math.cos(theta);
-        const z = Math.sin(phi) * Math.sin(theta);
-        const y = Math.cos(phi);
+    const point = new Three.Mesh(geometry, material);
 
-        return { x, y, z };
-    };
+    // const { x, y, z } = latLngToXYZ();
 
-    const XYZToLatLng = (x: number, y: number, z: number) => {
-        const lat = Math.asin(z / 1);
-        const lng = Math.atan2(y, x);
+    // const { lat, lng } = XYZToLatLng(x, y, z);
 
-        return { lat, lng };
-    };
+    // console.log({ latLng, x, y, z, lat, lng });
 
-    // render screen
-    const animate = () => {
-        controls.update();
+    point.position.set(x, y, z);
 
-        requestAnimationFrame(animate);
-        renderer.render(scene, camera);
-    };
+    scene.add(point);
+  };
 
-    // 브라우저 크기 변경 대응
-    const handleResize = () => {
-        if (ref !== null) {
-            const width = ref.current!.clientWidth;
-            const height = ref.current!.clientHeight;
+  const latLngToXYZ = () => {
+    const phi = (90 - latLng.lat) * (Math.PI / 180);
+    const theta = (latLng.lng + 180) * (Math.PI / 180);
 
-            renderer.setSize(width, height);
-            camera.aspect = width / height;
+    const x = -Math.sin(phi) * Math.cos(theta);
+    const z = Math.sin(phi) * Math.sin(theta);
+    const y = Math.cos(phi);
 
-            camera.updateProjectionMatrix();
-        };
-    };
+    return { x, y, z };
+  };
 
-    const clickListener = (e: MouseEvent) => {
-        const mousePosition = new Three.Vector2();
+  const XYZToLatLng = (x: number, y: number, z: number) => {
+    const lat = Math.asin(z / 1);
+    const lng = Math.atan2(y, x);
 
-        const raycaster = new Three.Raycaster();
+    return { lat, lng };
+  };
 
-        const width = window.innerWidth;
-        const height = window.innerHeight;
+  // render screen
+  const animate = () => {
+    controls.update();
 
-        mousePosition.set((e.clientX / width) * 2 - 1, -(e.clientY / height) * 2 + 1);
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+  };
 
-        raycaster.setFromCamera(mousePosition, camera);
+  // 브라우저 크기 변경 대응
+  const handleResize = () => {
+    if (ref !== null) {
+      const width = ref.current!.clientWidth;
+      const height = ref.current!.clientHeight;
 
-        const intersects = raycaster.intersectObjects(scene.children);
+      renderer.setSize(width, height);
+      camera.aspect = width / height;
 
-        if (intersects.length > 0) {
-            const point = intersects[0].point;
+      camera.updateProjectionMatrix();
+    }
+  };
 
-            makePoint(point.x, point.y, point.z)
-        }
-    };
+  const clickListener = (e: MouseEvent) => {
+    const mousePosition = new Three.Vector2();
 
-    return {
-        ref,
-        setValue: () => {
-        },
-        resetCamera: () => {
-            controls.reset();
-        }
-    };
+    const raycaster = new Three.Raycaster();
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    mousePosition.set(
+      (e.clientX / width) * 2 - 1,
+      -(e.clientY / height) * 2 + 1
+    );
+
+    raycaster.setFromCamera(mousePosition, camera);
+
+    const intersects = raycaster.intersectObjects(scene.children);
+
+    if (intersects.length > 0) {
+      const point = intersects[0].point;
+
+      makePoint(point.x, point.y, point.z);
+    }
+  };
+
+  return {
+    ref,
+    setValue: () => {},
+    resetCamera: () => {
+      controls.reset();
+    },
+  };
 };

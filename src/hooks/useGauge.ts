@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as Three from "three";
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 export const useGauge = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -24,10 +24,10 @@ export const useGauge = () => {
   let controls: OrbitControls;
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -58,7 +58,12 @@ export const useGauge = () => {
 
   // 카메라 셋팅
   const setCamera = () => {
-    camera = new Three.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera = new Three.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
 
     camera.position.z = 5;
   };
@@ -76,7 +81,7 @@ export const useGauge = () => {
   const makePanel = () => {
     const geometry = new Three.CircleGeometry();
 
-    const texture = new Three.TextureLoader().load('/assets/img/panel.jpg');
+    const texture = new Three.TextureLoader().load("/assets/img/panel.jpg");
 
     const material = new Three.MeshBasicMaterial({ map: texture });
     const panel = new Three.Mesh(geometry, material);
@@ -94,7 +99,7 @@ export const useGauge = () => {
 
     const geometry = new Three.ShapeGeometry(triangle);
 
-    const material = new Three.MeshBasicMaterial({ color: 0xD32F2F });
+    const material = new Three.MeshBasicMaterial({ color: 0xd32f2f });
 
     arrow = new Three.Mesh(geometry, material);
 
@@ -107,7 +112,7 @@ export const useGauge = () => {
   const moveTo = async () => {
     const zPosition = arrow.rotation.z;
 
-    const destination = minimumAngle - (division * value);
+    const destination = minimumAngle - division * value;
 
     let velocity = Math.abs(Math.abs(zPosition) - Math.abs(destination)) * 2;
 
@@ -151,7 +156,7 @@ export const useGauge = () => {
       camera.aspect = width / height;
 
       camera.updateProjectionMatrix();
-    };
+    }
   };
 
   return {
@@ -161,6 +166,6 @@ export const useGauge = () => {
     },
     resetCamera: () => {
       controls.reset();
-    }
+    },
   };
 };
